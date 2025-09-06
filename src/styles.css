@@ -1,0 +1,457 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ↓ 기존 CSS 계속 */
+
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./assets/fonts/SF-Pro-Display-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./assets/fonts/SF-Pro-Display-Heavy.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./assets/fonts/SF-Pro-Display-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* =========================
+   Base
+========================= */
+:root{
+  --nav-bg: rgba(9,16,28,0.35);
+  --nav-solid: rgba(9,16,28,0.55);
+  --ink: #0f2136;
+  --muted: #5a6776;
+  --border: #e7edf4;
+  --footer-bg: #f4f7fb;
+  --gutter: clamp(48px, 6.5vw, 96px);
+}
+
+*{ box-sizing: border-box; }
+html, body, #root { height: 100%; }
+
+body{
+  margin:0;
+  font-family:'SF Pro Display', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight:400;
+  font-style:normal;
+  color:var(--ink);
+  background:#fff;
+}
+
+a{ color: inherit; text-decoration: none; }
+
+.container{ max-width:1200px; margin:0 auto; padding:0 24px; }
+.container-wide{ max-width:1440px; margin:0 auto; padding:0 28px; }
+
+/* =========================
+   Topbar (헤더)
+========================= */
+.topbar{
+  position: fixed; inset: 0 0 auto 0; height: 62px; z-index: 100;
+  display:flex; align-items:center;
+  background: var(--nav-bg);
+  border-bottom:1px solid transparent;
+  transition: background .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.topbar.solid{
+  background: var(--nav-solid);
+  border-color: rgba(255,255,255,.1);
+  box-shadow: 0 2px 18px rgba(0,0,0,.18);
+}
+
+/* 헤더 내부 컨테이너 */
+.bar{
+  display:flex; align-items:center; justify-content:space-between;
+  min-height:62px;
+  gap:16px;
+  width:100%;
+}
+
+/* ==== Brand ==== */
+.brand {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  text-decoration: none;
+  gap: 8px;               /* 로고와 텍스트 사이 기본 간격 */
+}
+
+/* 로고만 따로 크기/이동 */
+.brand-logo {
+  width: 50px;            /* 로고 크기 조정 */
+  height: 50px;
+  object-fit: contain;
+  display: block;
+  margin-left: 120px;       /* 로고 전체를 오른쪽으로 밀고 싶으면 여기 */
+}
+
+/* 텍스트만 따로 컨트롤 */
+.brand-text {
+  padding-left: 6px;      /* 텍스트만 오른쪽으로 밀고 싶으면 여기 */
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: .02em;
+  color: #e9eef5;
+}
+.brand-text {
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 550;   /* 굵기 */
+  font-size: 20px;    /* 크기 */
+  color: #e9eef5;     /* 색상 */
+  letter-spacing: .02em;
+  margin-left: -7px;   /* 로고랑 간격 */
+}
+/* ==== Navigation (오른쪽 정렬 메뉴) ==== */
+.nav{
+  display:flex; align-items:center; gap:30px;
+  padding-left:40px;    /* 오른쪽 여백 */
+}
+.nav a{
+  color:#e6ecf5; font-weight:400; letter-spacing:.06em; font-size:13px;
+  opacity:.92; transition:opacity .2s ease; white-space:nowrap;
+}
+.nav a.active, .nav a:hover{ opacity:1; }
+.nav .nav-strong{ font-weight:400; }
+
+/* =========================
+   Hero (비디오 배경)
+========================= */
+.hero{
+  position:relative;
+  min-height:550px;
+  padding-top:75px;            /* 헤더 높이와 정확히 일치 */
+  background:#08101b;
+  overflow:hidden;
+  margin-bottom:80px;
+}
+.hero-video{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  z-index:0;
+  pointer-events:none;
+}
+.hero-overlay{ display:none; }
+
+.hero-inner{
+  position:relative; z-index:1;  /* 텍스트가 비디오 위로 */
+  height:100%;
+  display:flex; align-items:flex-start; justify-content:flex-start;
+  padding:72px 28px 28px;
+  max-width:1200px; margin:0 auto;
+}
+.hero-copy{ max-width:820px; }
+.hero-title{
+  margin:0 0 18px 0;
+  color:#fff; font-size:48px; line-height:1.1; font-weight:700;
+}
+.hero-sub{
+  margin:0; color:#e8eef8; font-size:18px; line-height:1.55;
+}
+.glow{
+  text-shadow:
+    0 0 6px rgba(255,255,255,.32),
+    0 0 12px rgba(255,255,255,.20),
+    0 12px 30px rgba(0,0,0,.55);
+}
+
+/* 페이지용 낮은 Hero */
+.hero--page{ min-height:320px; }
+
+/* =========================
+   Features (2x2 Grid)
+========================= */
+.features{ background:#fff; }
+.features .container{
+  max-width:1240px;
+  padding-left:var(--gutter);
+  padding-right:var(--gutter);
+  margin:0 auto;
+}
+.grid-2{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: 96px;
+  align-items:start;
+}
+.feature h2{
+  margin:0 0 14px 0; font-size:40px; line-height:1.2; color:#111f33;
+}
+.feature p{
+  margin:0; font-size:18px; line-height:1.7; color:var(--muted); max-width:50ch;
+}
+
+/* =========================
+   Apparatus Cards
+========================= */
+.gear-grid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:50px;
+  padding:60px 0;
+}
+.gear-card{ display:flex; flex-direction:column; align-items:center; text-align:center; }
+.gear-thumb{
+  width:150%; aspect-ratio:4/3; border-radius:16px; background:transparent;
+  overflow:hidden; box-shadow:none;
+}
+.gear-thumb img{
+  width:100%; height:100%; object-fit:contain; padding:0;
+  transition: transform .6s ease; background:transparent;
+}
+.gear-card:hover .gear-thumb img{ transform:scale(1.06); }
+.gear-meta{ margin-top:10px; }
+.gear-title{ font-size:25px; font-weight:550; color:#0f2136; }
+.gear-sub{ margin-top:4px; font-size:14px; color:#5a6776; }
+
+/* =========================
+   Footer
+========================= */
+.footer{
+  background:var(--footer-bg);
+  border-top:1px solid var(--border);
+}
+.footer-wrap{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:24px; padding:24px 0; flex-wrap:wrap;
+}
+.footer-brand{ height:52px; width:auto; object-fit:contain; display:block; }
+.footer-right{ color:#3b4a5a; line-height:1.6; text-align:right; }
+.copyright{
+  border-top:1px solid var(--border);
+  color:#647385; font-size:14px; padding:12px 0 18px; text-align:center;
+}
+
+/* =========================
+   Responsive
+========================= */
+@media (max-width:1280px){
+  .hero-title{ font-size:44px; }
+  .grid-2{ row-gap:80px; }
+}
+@media (max-width:1024px){
+  .hero{ min-height:440px; }
+  .hero-title{ font-size:38px; }
+  .grid-2{ row-gap:64px; }
+  .feature h2{ font-size:34px; }
+  .gear-grid{ grid-template-columns:repeat(2, 1fr); gap:28px; }
+}
+@media (max-width:768px){
+  .nav{ display:none; }
+  .hero{ min-height:400px; }
+  .hero-title{ font-size:28px; }
+  .hero-sub{ font-size:15px; }
+  .grid-2{ grid-template-columns:1fr; column-gap:0; row-gap:40px; }
+  .feature h2{ font-size:26px; }
+  .gear-grid{ grid-template-columns:1fr; gap:24px; }
+  .footer-wrap{ flex-direction:column; align-items:flex-start; gap:14px; }
+  .footer-right{ text-align:left; }
+}
+
+/* =========================
+   Utilities & Fonts
+========================= */
+.nowrap{ white-space:nowrap; }
+
+.font-outfit{
+  font-family:'Outfit','Inter',system-ui,-apple-system,Segoi UI,Roboto,'Noto Sans KR',Arial,sans-serif;
+}
+h1, h2, h3 {
+  font-family: 'SF Pro Display', sans-serif;
+  font-weight: 900;   /* Bold */
+}
+
+.hero-title {
+  font-family: 'SF Pro Display', sans-serif;
+  font-weight: 900;   /* Heavy */
+}
+
+/* ===== People page ===== */
+.page.people-page { background:#fff; color:var(--ink); }
+
+.section-pad { padding: 48px 0 64px; }
+
+.section-title-box{
+  text-align:center;
+  font-size: 40px;
+  font-weight: 700;
+  color: #5b6677;
+  background: #f1f4f9;
+  border-radius: 14px;
+  padding: 14px 20px;
+  margin-bottom: 28px;
+}
+
+/* Professor block */
+.prof-wrap{
+  display:flex;
+  align-items:flex-start;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.prof-thumb{
+  width: 100%;
+  max-width: 300px;
+  flex: 0 0 auto;
+}
+.thumb-aspect{
+  aspect-ratio: 3 / 4;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e6eaf0;
+}
+.thumb-aspect img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 8px;   /* 테두리 안쪽 여백 */
+}
+
+.prof-meta{ flex: 1 1 320px; min-width: 280px; }
+.prof-role{ font-size: 12px; color:#728096; margin-bottom: 6px; }
+.prof-name{ font-size: 24px; font-weight: 800; color:#0f2136; margin-bottom: 10px; }
+.prof-line{ color:#334155; margin-bottom: 6px; }
+.prof-line.strong{ font-weight: 600; }
+
+.prof-icons{
+  display:flex; gap: 12px; margin-top: 12px;
+}
+.icon-28{ width:28px; height:28px; object-fit:contain; display:block; }
+
+/* Students grid */
+.students-grid{
+  display:grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 24px;
+}
+@media (max-width: 1024px){
+  .students-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 640px){
+  .students-grid{ grid-template-columns: 1fr; }
+}
+
+/* Student card */
+.person-card{
+  background:#fff;
+  border-radius: 16px;
+  border: 1px solid #e7edf4;
+  box-shadow: 0 6px 24px rgba(16,24,40,.06);
+  padding: 20px;
+  text-align: center;
+}
+.person-thumb{
+  width: 100%;
+  aspect-ratio: 4/5;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  background: #fff;
+}
+.person-thumb img{
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+.person-role{ font-size: 12px; color:#94a3b8; margin-bottom: 4px; }
+.person-name-kr{ font-size: 14px; color:#64748b; margin-bottom: 4px; }
+.person-name-en{ font-size: 18px; font-weight: 800; color:#0f2136; margin-bottom: 8px; }
+
+.person-tags{
+  display:flex; flex-wrap: wrap; gap: 8px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.person-tag{
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 999px;
+  background: #f1f5f9;
+  color:#334155;
+  border: 1px solid #e2e8f0;
+}
+
+.person-links{
+  display:flex; gap: 10px; justify-content:center; align-items:center;
+}
+.person-mail{
+  display:inline-flex; align-items:center; gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background:#f8fafc;
+  color:#475569;
+  border: 1px solid #e2e8f0;
+}
+.person-mail:hover{ color:#4f46e5; }
+.ellipsis{ max-width: 160px; display:inline-block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+.icon-link{ opacity:.85; }
+.icon-link:hover{ opacity:1; }
+.icon-20{ width:20px; height:20px; display:block; object-fit:contain; }
+
+/* === Nav (hover 색상/전환 추가) === */
+.nav a{
+  color:#ffffff;
+  font-weight:400;
+  letter-spacing:.06em;
+  font-size:16px;
+  opacity:.92;
+  /* 색이랑 투명도 모두 부드럽게 전환 */
+  transition: color .18s ease, opacity .18s ease;
+  white-space:nowrap;
+}
+
+/* 마우스 올렸을 때 & 키보드 포커스 */
+.nav a:hover,
+.nav a:focus-visible{
+  color:#bdbdbd;   /* 커서 클릭 */
+  opacity:1;
+}
+
+/* 클릭 중(press) 색 */
+.nav a:active{
+  color:#ffffff;
+  opacity:1;
+}
+
+/* 현재 라우트(active) */
+.nav a.active{
+  color:#ffffff;
+  opacity:1;
+}
+/* Hero overlay */
+.hero-dim{ position:absolute; inset:0; background:rgba(0,0,0,.35); z-index:0; }
+
+/* Publications layout */
+.pub-container{ padding:40px 24px 60px; }
+.pub-item{ margin-bottom:40px; }
+.pub-link{ color:#4f46e5; font-weight:500; text-decoration:none; }
+.pub-link:hover{ color:#4338ca; text-decoration:underline; }
+.pub-meta{ color:#64748b; margin-top:8px; }
+.pub-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+.pub-tag{
+  padding:6px 10px; font-size:12px; border-radius:999px;
+  background:#f1f5f9; color:#334155; border:1px solid #e2e8f0;
+}
+.pub-link {
+  color:#4f46e5;
+  font-weight:700;
+  text-decoration:none;
+  font-size:22px;     /* ✅ 제목 폰트 크기 */
+  line-height:1.4;    /* ✅ 줄간격도 조정 가능 */
+}
