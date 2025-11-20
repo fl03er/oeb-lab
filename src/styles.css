@@ -130,7 +130,7 @@ a{ color: inherit; text-decoration: none; }
 ========================= */
 .hero{
   position:relative;
-  min-height:550px;
+  min-height:615px;
   padding-top:75px;            /* 헤더 높이와 정확히 일치 */
   background:#08101b;
   overflow:hidden;
@@ -200,12 +200,12 @@ a{ color: inherit; text-decoration: none; }
 .gear-grid{
   display:grid;
   grid-template-columns:repeat(3, 1fr);
-  gap:50px;
-  padding:60px 0;
+  gap:60px;
+  padding: 60px 0;
 }
 .gear-card{ display:flex; flex-direction:column; align-items:center; text-align:center; }
 .gear-thumb{
-  width:150%; aspect-ratio:4/3; border-radius:16px; background:transparent;
+  width:100%; aspect-ratio:4/3; border-radius:16px; background:transparent;
   overflow:hidden; box-shadow:none;
 }
 .gear-thumb img{
@@ -231,7 +231,6 @@ a{ color: inherit; text-decoration: none; }
 .footer-brand{ height:52px; width:auto; object-fit:contain; display:block; }
 .footer-right{ color:#3b4a5a; line-height:1.6; text-align:right; }
 .copyright{
-  border-top:1px solid var(--border);
   color:#647385; font-size:14px; padding:12px 0 18px; text-align:center;
 }
 
@@ -454,4 +453,111 @@ h1, h2, h3 {
   text-decoration:none;
   font-size:22px;     /* ✅ 제목 폰트 크기 */
   line-height:1.4;    /* ✅ 줄간격도 조정 가능 */
+}
+/* ===== Mobile Nav ===== */
+.menu-btn{
+  display:none;                 /* 데스크톱에서는 숨김 */
+  width:40px; height:36px;
+  align-items:center; justify-content:center;
+  background:transparent; border:0; cursor:pointer;
+}
+.menu-btn span{
+  display:block; width:22px; height:2px; background:#fff;
+  margin:3px 0; border-radius:2px;
+}
+
+/* 드롭다운 컨테이너 */
+.mobile-nav{
+  display:none;                 /* 기본 숨김 */
+  position:fixed; left:0; right:0; top:62px;  /* topbar 높이 */
+  background:#0f2136; color:#fff; z-index:99;
+  border-bottom:1px solid rgba(255,255,255,.12);
+  padding:14px 24px;
+}
+.mobile-nav.open{ display:block; }
+.mobile-nav a{
+  display:block; padding:12px 2px; color:#e6ecf5; opacity:.92;
+}
+.mobile-nav a:hover,
+.mobile-nav a.active{ opacity:1; }
+
+/* 반응형: 768px 이하에서 햄버거 표시 & 데스크톱 nav 숨김 */
+@media (max-width: 768px){
+  .menu-btn{ display:inline-flex; }
+  .nav{ display:none; }  /* 네 파일에 이미 같은 규칙이 있어도 중복 무방 */
+}
+
+
+/* 모바일에서만 브랜드 위치/여백 조정 */
+@media (max-width: 768px){
+  .brand-logo{
+    margin-left: 12px !important;  /* 기존 120px을 모바일에서만 줄임 */
+  }
+  .brand-text{
+    margin-left: 6px;              /* 로고와 텍스트 간격만 살짝 */
+    font-size: 18px;               /* 필요하면 살짝 축소 */
+  }
+  /* 선택: 상단 바 좌측 패딩 조금 주기 */
+  .bar{ padding-left: 8px; }
+}
+
+.hero { position: relative; }
+.hero-video{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;        /* 일부 브라우저에서 안전 */
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ===== Home responsive tweaks ===== */
+
+/* 데스크톱(>768px)에서만 첫 줄 붙여 쓰기 */
+.nowrap-md { white-space: nowrap; }
+@media (max-width: 768px){
+  .nowrap-md { white-space: normal; }    /* 모바일에선 줄바꿈 허용 */
+}
+
+/* 모바일에서만 줄바꿈 강제 */
+.br-mobile { display: none; }
+@media (max-width: 768px){
+  .br-mobile { display: inline; }
+}
+
+/* 홈 히어로 영역(모바일 튜닝) */
+@media (max-width: 768px){
+  .hero{ min-height: 420px; }
+  .hero-inner{ padding: 56px 16px 20px; }  /* 좌우 여백 살짝 줄임 */
+
+  .hero-title{
+    font-size: 28px;        /* 제목 작게 */
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    white-space: normal;    /* 단어 단위 줄바꿈 */
+    word-break: keep-all;   /* 단어 중간 잘림 방지(영/한 혼용 안전) */
+  }
+  .hero-sub{
+    font-size: 15px;
+    line-height: 1.55;
+  }
+}
+
+/* 홈 2×2 그리드 → 모바일 1열 */
+@media (max-width: 768px){
+  .grid-2{
+    grid-template-columns: 1fr;
+    row-gap: 40px;
+    column-gap: 0;
+  }
+  .feature h2{ font-size: 24px; }
+  .feature p { font-size: 15px; }
+}
+
+
+.hero-video{
+  border: 4px solid red !important;
+  background: yellow !important;
 }

@@ -185,7 +185,7 @@ export default function People() {
             img={imgSia}
             nameKr="문시아"
             nameEn="Sia Moon"
-            role="MS"
+            role="BS"
             tags={["UserInterface", "UserExperience", "HCI", "Data Analysis"]}
             email="skylineveryday@inu.ac.kr"
           />
